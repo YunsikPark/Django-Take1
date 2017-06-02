@@ -1,22 +1,9 @@
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, get_object_or_404
-from django.template import loader
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 
 from .models import Choice, Question
-
-
-# def index(request):
-#     # return HttpResponse("Hello, world. You're at the polls index.")
-#     lastest_question_list = Question.objects.order_by('-pub_date')[:5]
-#     # template = loader.get_template('polls/index.html')
-#     context = {
-#         'lastest_question_list': lastest_question_list,
-#     }
-#     # output = ', '.join([q.question_text for q in lastest_question_list])
-#     # return HttpResponse(template.render(context, request))
-#     return render(request, 'polls/index.html', context)
 
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
@@ -27,23 +14,14 @@ class IndexView(generic.ListView):
         return Question.objects.order_by('-pub_date')[:5]
 
 
-# def detail(request, question_id):
-#     # try:
-#     #     question = Question.objects.get(pk = question_id)
-#     # except Question.DoesNotExist:
-#     #     raise Http404("Question does not exist")
-#     question = get_object_or_404(Question, pk=question_id)
-#     return render(request, 'polls/detail.html', {'question': question})
-#     # return HttpResponse("You're looking at question %s." % question_id)
+
 
 class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
 
 
-# def result(request, question_id):
-#     question = get_object_or_404(Question, pk=question_id)
-#     return render(request, 'polls/results.html', {'question': question})
+
 
 class ResultsView(generic.DetailView):
     model = Question
